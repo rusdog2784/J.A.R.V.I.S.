@@ -1,7 +1,8 @@
 import speech_recognition as sr
 import datetime as dt
 from gtts import gTTS
-import os, time
+import os, time, random
+from actions import Actions
 
 def speak(audioString):
     print("Saying: " + audioString)
@@ -40,18 +41,56 @@ def getTimeOfDay():
         return "evening"
     return ""
 
+def getRandomAdjective():
+    adjs = ["swell", "great", "okay", "fantastic", "alright"]
+    index = random.randint(0, len(adjs) - 1)
+    adj = adjs[index]
+    return adj
+
 def jarvis(data):
     if "hello" in data or "good morning" in data or "good afternoon" in data or "good evening" in data:
         tod = getTimeOfDay()
-        speak("Good " + tod + " how can I help you")
+        if "how are you" in data:
+            adjective = getRandomAdjective()
+            text = "Good " + tod + " sir, I'm doing " + adjective + ", what can I do for you"
+            speak(text)
+        else:
+            text = "Good " + tod + " sir, what can I do for you"
+            speak(text)
     if "how are you" in data:
-        speak("I'm doing just swell, considering I'm a program")
+        adjective = getRandomAdjective()
+        text = "I'm doing " + adjective + ", what can I do for you"
+        speak(text)
+    if "weather" in data:
+        if "today" in data:
+            weatherData = actions.getWeather("today")
+        elif "tomorrow" in data:
+            weatherData = actions.getWeather("tomorrow")
+        else:
+            weatherData = actions.getWeather(None)
+        if weatherData != None:
+            city = weatherData['city'].encode('ascii', 'ignore')
+            date = weatherData['date']
+            condition = weatherData['condition'].encode('ascii', 'ignore')
+            low = weatherData['low'].encode('ascii', 'ignore')
+            high = weatherData['high'].encode('ascii', 'ignore')
+            print city
+            print date
+            print condition
+            print low
+            print high
+            text = "the weather in " + city + " " + date + " is going to be " + condition + " with temperatures ranging from " + str(low) + " to " + str(high)
+            speak(text)
+        else:
+            text = "Sorry, I couldn't gather weather data for some reason"
+            speak(text)
     if "goodbye" in data:
         speak("Goodbye")
         exit()
 
-if __name__ == "__main__":
-    time.sleep(2)
-    while 1:
-        data = recordAudio()
-        jarvis(data)
+
+actions = Actions("hoboken")
+time.sleep(2)
+while 1:
+    data = recordAudio()
+    jarvis(data)
