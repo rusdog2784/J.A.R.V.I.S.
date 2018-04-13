@@ -1,13 +1,12 @@
-from weather import Weather, Unit
+import datetime
 
-weather = Weather(unit=Unit.FAHRENHEIT)
+now = datetime.datetime.now()
 
-location = weather.lookup_by_location("hoboken")
-city = location.location.city
-state =  location.location.region
+day = now.strftime("%A, %B %dth")
+if (now.minute == 0):
+    time = now.strftime("%I %p")
+else:
+    time = now.strftime("%I:%M %p")
 
-forecasts = location.forecast
-print(forecasts[0].text)
-print(forecasts[0].date)
-print(forecasts[0].high)
-print(forecasts[0].low)
+print day
+print time
