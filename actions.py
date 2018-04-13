@@ -65,3 +65,8 @@ class Actions:
     def goToWebsite(self, location):
         return
 
+    def playMarvelMovie(title):
+        if (title == None):
+            #Play any marvel movie (shuffle = true)
+        else:
+            
