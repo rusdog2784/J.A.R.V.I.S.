@@ -1,4 +1,5 @@
 from weather import Weather, Unit
+import datetime
 
 class Actions:
     location = ""
@@ -42,8 +43,18 @@ class Actions:
     def getNews(self, story):
         return
 
+    def getDate(self):
+        now = datetime.datetime.now()
+        day = now.strftime("%A, %B %dth")
+        return day
+
     def getTime(self):
-        return
+        now = datetime.datetime.now()
+        if (now.minute == 0):
+            time = now.strftime("%I %p")
+        else:
+            time = now.strftime("%I:%M %p")
+        return time
 
     def getCalendar(self, action):
         return
@@ -54,3 +65,8 @@ class Actions:
     def goToWebsite(self, location):
         return
 
+    def playMarvelMovie(title):
+        if (title == None):
+            #Play any marvel movie (shuffle = true)
+        else:
+            
