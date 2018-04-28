@@ -71,3 +71,4 @@ class Actions:
             #Play any marvel movie (shuffle = true)
         else:
         '''
+        return
