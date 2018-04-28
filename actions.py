@@ -66,7 +66,8 @@ class Actions:
         return
 
     def playMarvelMovie(title):
+        '''
         if (title == None):
             #Play any marvel movie (shuffle = true)
         else:
-            
+        '''

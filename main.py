@@ -53,16 +53,10 @@ def jarvis(data):
         if "how are you" in data:
             adjective = getRandomAdjective()
             text = "Good " + tod + " sir, I'm doing " + adjective + ", what can I do for you"
-            speak(text)
+            speak(str(text))
         else:
             text = "Good " + tod + " sir, what can I do for you"
-            speak(text)
-    '''
-    if "how are you" in data:
-        adjective = getRandomAdjective()
-        text = "I'm doing " + adjective + ", what can I do for you"
-        speak(text)
-    '''
+            speak(str(text))
     if "weather" in data:
         if "today" in data:
             weatherData = actions.getWeather("today")
@@ -76,16 +70,25 @@ def jarvis(data):
             condition = weatherData['condition'].encode('ascii', 'ignore')
             low = weatherData['low'].encode('ascii', 'ignore')
             high = weatherData['high'].encode('ascii', 'ignore')
-            print city
-            print date
-            print condition
-            print low
-            print high
-            text = "the weather in " + city + " " + date + " is going to be " + condition + " with temperatures ranging from " + str(low) + " to " + str(high)
+            text = "the weather in " + city + " " + date + " is going to be " + condition + " with temperatures ranging from " + str(low) + " to " + str(high) + " degrees"
             speak(text)
         else:
             text = "Sorry, I couldn't gather weather data for some reason"
             speak(text)
+    if "time" in data:
+        if "date" in data:
+            time = actions.getTime()
+            date = actions.getDate()
+            text = "it is " + str(time) + " on " + str(date)
+            speak(text)
+        else:
+            time = actions.getTime()
+            text = "it is " + str(time)
+            speak(text)
+    if "date" in data and "time" not in data:
+        date = actions.getDate()
+        text = "it is " + str(date)
+        speak(text)
     if "goodbye" in data:
         speak("Goodbye")
         exit()
@@ -96,3 +99,4 @@ time.sleep(2)
 while 1:
     data = recordAudio()
     jarvis(data)
+    print
