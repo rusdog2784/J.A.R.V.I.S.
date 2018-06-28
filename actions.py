@@ -16,6 +16,9 @@ import random
 # Spotify API imports
 import spotipy
 import spotipy.util as util
+# News API imports
+from newsapi import NewsApiClient
+import sys
 
 class Actions:
     location = ""
@@ -23,6 +26,7 @@ class Actions:
     websites = {}
     applications = []
     movieNames = []
+    folders = {}
 
     # Initializing function that is called at the start of JARVIS.
     def __init__(self, location):
@@ -53,6 +57,11 @@ class Actions:
         username = 'scott.tkdmaster@mac.com'
         scope = 'user-library-read user-read-private streaming'
         token = util.prompt_for_user_token(username, scope)
+        # Initializing News API
+        news_api_key = '603fdd9223614b60826a80b8ad29afa8'
+        # Initiating folders variable from the "folders.json" file which contains a dictionary of folder locations
+        with open("folders.json", 'r') as f:
+            folders = json.load(f)
 
     # Function to gather weather data for the specified location
     # Returns object (city, condition, high, low)
@@ -86,8 +95,38 @@ class Actions:
         }
         return data
 
-    def getNews(self, story):
-        return
+    # Function collects 10 articles from the following news sources:
+    # bbc-news,the-verge,the-wall-street-journal,bloomberg,the-economist,wired
+    # and returns the list of articles for JARVIS to speak. The object returned
+    # is a list of dictionary objects called 'articles'. This object contains
+    # the following meta-data: title of article, when the article was published,
+    # where the article came from, the url of the article, etc. just to name a
+    # few. 
+    def getNews(self):
+        # Creating News API object
+        newsapi = NewsApiClient(api_key=api_key)
+        top_headlines = newsapi.get_top_headlines(sources='bbc-news,the-verge,the-wall-street-journal,bloomberg,the-economist,wired')
+        articles = top_headlines['articles']
+        if len(articles) > 10:
+            articles = articles[0:10]
+        '''
+        count = 1
+        for article in articles:
+            print(article['title'])
+            print(article['url'])
+            print(article['publishedAt'])
+            print(article['source']['name'])
+            print('-'*60)
+            command = 'say "Number %s: %s writes %s"' % (str(count), article['source']['name'].encode('utf-8'), article['title'].encode('utf-8'))
+            count += 1
+            try:
+                os.system(command)
+            except KeyboardInterrupt:
+                print("Interupted! How rude!")
+            finally:
+                sys.exit()
+        '''
+        return articles
 
     # Simple function to get the current date.
     def getDate(self):
@@ -108,7 +147,16 @@ class Actions:
         return
 
     def openFolder(self, location):
-        return
+        if len(folders) == 0:
+            print("Error, something happened with loading folder locations. The object, folders, is empty.")
+            return
+        location.lower()
+        if location in folders:
+            command = '''open "%s"''' % (folders[location])
+            os.system(command)
+        else:
+            print("Folder not logged or doesn't exist.")
+        return "Opening " + location
 
     # Function to open the specified website in a web browser assuming it knows
     # what website the user is talking about.
@@ -119,7 +167,9 @@ class Actions:
         location = location.lower()
         if location in websites:
             webbrowser.open_new_tab(websites[location])
-        return
+        else:
+            print("Folder not logged or doesn't exist.")
+        return "Opening " + location
 
     # Function will play the specified Marvel movie from iTunes.
     def playMarvelMovie(self, title):

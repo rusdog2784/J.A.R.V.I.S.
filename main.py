@@ -15,7 +15,8 @@ def speak(audioString):
     tts.save("audio.mp3")
     os.system("mp321 audio.mp3")
     '''
-    os.system("say " + audioString)
+    command = "say '" + audioString + "'"
+    os.system(command)
 
 def recordAudio():
     r = sr.Recognizer()    
@@ -124,5 +125,6 @@ if os.path.isfile('unknown_commands.csv') == False:
 time.sleep(2)
 while 1:
     data = recordAudio()
-    jarvis(data)
+    if "JARVIS" in data:
+        jarvis(data)
     print
