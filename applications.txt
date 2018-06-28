@@ -1,0 +1,60 @@
+AirDroid.app
+Android Studio.app
+App Store.app
+Automator.app
+Calculator.app
+Calendar.app
+Chess.app
+Contacts.app
+DVD Player.app
+Dashboard.app
+Dictionary.app
+FaceTime.app
+Firefox.app
+Font Book.app
+GarageBand.app
+GitHub Desktop.app
+Google Chrome.app
+Image Capture.app
+Install macOS High Sierra.app
+Keynote.app
+LTspice.app
+Launchpad.app
+MATLAB_R2015b.app
+Mail.app
+Maps.app
+Messages.app
+Microsoft Excel.app
+Microsoft OneNote.app
+Microsoft Outlook.app
+Microsoft PowerPoint.app
+Microsoft Word.app
+Mission Control.app
+Notes.app
+Numbers.app
+Pages.app
+Photo Booth.app
+Photos.app
+Postman.app
+Preview.app
+QuickTime Player.app
+Reminders.app
+Safari.app
+Sequel Pro.app
+Siri.app
+Sketch.app
+Slack.app
+Spectacle.app
+Spotify.app
+Stickies.app
+System Preferences.app
+TextEdit.app
+Time Machine.app
+Utilities
+VNC Viewer.app
+Visual Studio Code.app
+Wireshark.app
+Xcode.app
+iBooks.app
+iMovie.app
+iTunes.app

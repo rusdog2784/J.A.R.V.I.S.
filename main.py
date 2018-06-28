@@ -46,7 +46,7 @@ def getTimeOfDay():
     return ""
 
 def getRandomAdjective():
-    adjs = ["swell", "great", "okay", "fantastic", "alright"]
+    adjs = ["swell", "great", "okay", "fantastic", "alright", "excellent"]
     index = random.randint(0, len(adjs) - 1)
     adj = adjs[index]
     return adj
@@ -115,15 +115,6 @@ def jarvis(data):
             writer = csv.DictWriter(csvfile, fieldnames=unknown_fieldnames)
             writer.writerow({'Command':commandToSave, 'Action':actionToSave})
         speak("Command recorded.")
-
-# Function in charge of handling a new command assuming user wants command to be recorded.
-def saveCommand(data):
-    if "yes" in data:
-        with open('unknown_commands.csv', 'a') as csvfile:
-            writer = csv.DictWriter(csvfile)
-            writer.writerow({'Command':commandToSave, 'Action':actionToSave})
-    else:
-        speak("Ok, I'll forget it")
 
 actions = Actions("hoboken")
 if os.path.isfile('unknown_commands.csv') == False:
