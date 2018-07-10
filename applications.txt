@@ -1,10 +1,12 @@
-AirDroid.app
-Android Studio.app
+Adobe Creative Cloud
+Adobe Experience Design CC (Preview)
 App Store.app
 Automator.app
+Brackets.app
 Calculator.app
 Calendar.app
 Chess.app
+CodeRunner.app
 Contacts.app
 DVD Player.app
 Dashboard.app
@@ -16,10 +18,11 @@ GarageBand.app
 GitHub Desktop.app
 Google Chrome.app
 Image Capture.app
-Install macOS High Sierra.app
 Keynote.app
-LTspice.app
+LEGO Marvel Super Heroes.app
 Launchpad.app
+MAMP
+MAMP PRO
 MATLAB_R2015b.app
 Mail.app
 Maps.app
@@ -28,33 +31,44 @@ Microsoft Excel.app
 Microsoft OneNote.app
 Microsoft Outlook.app
 Microsoft PowerPoint.app
+Microsoft Silverlight
 Microsoft Word.app
 Mission Control.app
 Notes.app
 Numbers.app
 Pages.app
+PapersPlease.app
 Photo Booth.app
 Photos.app
+Postgres.app
 Postman.app
 Preview.app
 QuickTime Player.app
 Reminders.app
 Safari.app
 Sequel Pro.app
+Server.app
 Siri.app
 Sketch.app
+Skype.app
 Slack.app
 Spectacle.app
 Spotify.app
 Stickies.app
+Sublime Text.app
 System Preferences.app
 TextEdit.app
+The Unarchiver.app
 Time Machine.app
+Unity
 Utilities
+VLC.app
 VNC Viewer.app
 Visual Studio Code.app
-Wireshark.app
+W2RV_0.5.2.app
 Xcode.app
 iBooks.app
+iMovie 9.0.9
 iMovie.app
+iPhoto.app
 iTunes.app
