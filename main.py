@@ -53,7 +53,8 @@ def getRandomAdjective():
     return adj
 
 def jarvis(data):
-    if "hello" in data or "good morning" in data or "good afternoon" in data or "good evening" in data:
+    data = data.lower()
+    if "hello" in data or "good morning" in data or "good afternoon" in data or "good evening" in data or "hi" in data:
         tod = getTimeOfDay()
         if "how are you" in data:
             adjective = getRandomAdjective()
@@ -125,6 +126,6 @@ if os.path.isfile('unknown_commands.csv') == False:
 time.sleep(2)
 while 1:
     data = recordAudio()
-    if "JARVIS" in data:
+    if "Jarvis" in data:
         jarvis(data)
     print
