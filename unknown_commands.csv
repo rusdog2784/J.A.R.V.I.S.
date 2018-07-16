@@ -1,5 +1,5 @@
 Command,Action
-please "put" my doctor appt with the PA "at" newport family medicine in my "calendar" "for" thursday June 23rd and "remind me" 30 minutes in advanced, creating calendar events
+please put my doctor appt with the PA at newport family medicine in my calendar for thursday June 23rd and remind me 30 minutes in advanced, creating calendar events
 Jarvis can you play something from Spotify,play Spotify
 hey Jarvis create a calendar event titled going into the city for tomorrow at 11 a.m.,creating calendar events
 hey jarvis open facebook,open website
@@ -11,3 +11,4 @@ hey jarvis what's going on in the world,reading the news
 hey jarvis,simple toggle
 hey jarvis play a marvel movie,prompt the user
 hey jarvis play the marvel movie iron man,Marvel movie
+alright thanks that's all Jarvis,make the awake variable false

@@ -4,6 +4,7 @@ from gtts import gTTS
 import os, time, random, csv, os.path
 from actions import Actions
 
+awake = False
 commandToSave = ""
 actionToSave = ""
 unknown_fieldnames = ['Command', 'Action']
@@ -15,7 +16,8 @@ def speak(audioString):
     tts.save("audio.mp3")
     os.system("mp321 audio.mp3")
     '''
-    command = "say '" + audioString + "'"
+    #command = "say '" + audioString + "'"
+    command = 'say "' + audioString + '"'
     os.system(command)
 
 def recordAudio():
@@ -54,7 +56,8 @@ def getRandomAdjective():
 
 def jarvis(data):
     data = data.lower()
-    if "hello" in data or "good morning" in data or "good afternoon" in data or "good evening" in data or "hi" in data:
+    global awake
+    if "hello" in data or "good morning" in data or "good afternoon" in data or "good evening" in data or "hey" in data or "hi" in data:
         tod = getTimeOfDay()
         if "how are you" in data:
             adjective = getRandomAdjective()
@@ -104,7 +107,9 @@ def jarvis(data):
         return
     if "goodbye" in data:
         speak("Goodbye")
-        exit()
+        awake = False
+        #exit()
+        return
     if data == "":
         return
     speak("Command unknown. Save command?")
@@ -126,6 +131,12 @@ if os.path.isfile('unknown_commands.csv') == False:
 time.sleep(2)
 while 1:
     data = recordAudio()
-    if "Jarvis" in data:
+    if "goodbye" in data:
         jarvis(data)
+    if awake == True:
+        jarvis(data)
+    else:
+        if "Jarvis" in data:
+            awake = True
+            jarvis(data)
     print
