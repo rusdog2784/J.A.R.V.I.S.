@@ -68,6 +68,11 @@ def jarvis(data):
             text = "Good " + tod + " sir, what can I do for you"
             speak(str(text))
             return
+    if "how are you" in data:
+        adjective = getRandomAdjective()
+        text = "I'm doing " + adjective + ", what can I help with"
+        speak(str(text))
+        return
     if "weather" in data:
         if "today" in data:
             weatherData = actions.getWeather("today")

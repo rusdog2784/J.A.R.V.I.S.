@@ -19,30 +19,31 @@ import spotipy.util as util
 # News API imports
 from newsapi import NewsApiClient
 import sys
+# Magic Mirror imports
+import requests
 
-class Actions:
-    location = ""
-    service = None
+class Actions(object):
+    google_scope = 'https://www.googleapis.com/auth/calendar'
+    news_api_key = '603fdd9223614b60826a80b8ad29afa8'
+    spotify_username = 'scott.tkdmaster@mac.com'
+    spotify_scope = 'user-library-read user-read-private streaming'
     websites = {}
     applications = []
     movieNames = []
     folders = {}
-    news_api_key = ""
-    spotify_token = ""
-
+    
     # Initializing function that is called at the start of JARVIS.
-    def __init__(self, location):
+    def __init__(self, location="hoboken"):
         print("Initializing Actions class...")
         # Creating system applications list and saving it as "applications.txt"
         os.system("ls /Applications > /Users/scott/Desktop/Programming/Python/Projects/J.A.R.V.I.S./applications.txt")
         # Setting location for weather services
         self.location = location
         # Google Calendar API setup
-        SCOPES = 'https://www.googleapis.com/auth/calendar'
         store = file.Storage('credentials.json')
         creds = store.get()
         if not creds or creds.invalid:
-            flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
+            flow = client.flow_from_clientsecrets('client_secret.json', self.google_scope)
             creds = tools.run_flow(flow, store)
         self.service = build('calendar', 'v3', http=creds.authorize(Http()))
         # Initiating website variable from the "websites.json" file which contains a dictionary of websites
@@ -56,11 +57,7 @@ class Actions:
         with open('marvel_movies.txt', 'r') as f:
                 self.movieNames = f.readlines()
         # Spotify Authentication
-        username = 'scott.tkdmaster@mac.com'
-        scope = 'user-library-read user-read-private streaming'
-        self.spotify_token = util.prompt_for_user_token(username, scope)
-        # Initializing News API
-        self.news_api_key = '603fdd9223614b60826a80b8ad29afa8'
+        self.spotify_token = util.prompt_for_user_token(self.spotify_username, self.spotify_scope)
         # Initiating folders variable from the "folders.json" file which contains a dictionary of folder locations
         with open("folders.json", 'r') as f:
             self.folders = json.load(f)
@@ -267,14 +264,17 @@ class Actions:
     # made and is active. If the token is valid, a spotify object is created that
     # performs a search based on the search and type, returns the first item,
     # then, using applescript, plays the desired spotify uri.
-    def playSpotify(self, search, type):
+    def playSpotify(self, search, searchType):
+        if searchType.lower() == "track":
+            search = search.replace("by", "")
+
         if self.spotify_token:
             sp = spotipy.Spotify(auth=self.spotify_token)    
-            result = sp.search(q=search, type=type)
+            result = sp.search(q=search, type=searchType)
             if result:
-                if result[type+'s']:
-                    if result[type+'s']['items']:
-                        item = result[type+'s']['items'][0]
+                if result[searchType+'s']:
+                    if result[searchType+'s']['items']:
+                        item = result[searchType+'s']['items'][0]
                         print(item)
                         item_uri = item['uri']
                         print(item_uri)
@@ -287,5 +287,20 @@ class Actions:
                         os.system(command)
         else:
             print("Error, something happened with creating a spotify token. The object, token, has not been created.")
-        returnString = "PLaying %s" % (search)
+        returnString = "Playing %s" % (search)
         return returnString
+
+    def playRandomSpotify(self):
+        if self.spotify_token:
+            sp = spotipy.Spotify(auth=self.spotify_token)
+            results = sp.current_user_top_tracks()
+            randomSong = random.choice(results['items'])
+            randomURI = randomSong['uri']
+            print(randomURI)
+            osascript = '''
+            tell application "Spotify"
+                play track "%s"
+            end tell
+            ''' % (randomURI)
+            command = "osascript -e '" + osascript + "'"
+            os.system(command)

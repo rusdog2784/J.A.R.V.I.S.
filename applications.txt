@@ -6,7 +6,6 @@ Brackets.app
 Calculator.app
 Calendar.app
 Chess.app
-CodeRunner.app
 Contacts.app
 DVD Player.app
 Dashboard.app
@@ -29,7 +28,6 @@ Maps.app
 Messages.app
 Microsoft Excel.app
 Microsoft OneNote.app
-Microsoft Outlook.app
 Microsoft PowerPoint.app
 Microsoft Silverlight
 Microsoft Word.app
